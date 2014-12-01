@@ -1,0 +1,37 @@
+//----------------------------------------------------------------------------
+// File -------- moonlander.cpp
+// Programmer -- Sabera Daqiq
+// 
+// This program creates a moonlander and computes its status.
+//
+// This file contains only the main program.
+//----------------------------------------------------------------------------
+#include <iostream>
+#include <cstdlib>
+#include <iomanip>
+#include "functions.h"
+using namespace std;
+
+//----------------------------------------------------------------------------
+// main program
+//----------------------------------------------------------------------------
+
+int main (){
+		 Moonlander lander;
+		 double value;
+		 value=0.95;
+		 lander.display();
+		 lander.feulFlow(value);
+		 for (double t=0.0; t<=20.0;t+=0.1){
+			lander.amt_time(0.1);
+		 }	
+		 value=0.0;
+		 lander.display();
+		 lander.feulFlow(value);
+		 for (double i=0.1; i<=15.0; i+=0.1){
+			 lander.amt_time(0.1);
+		 }
+		 lander.display();
+		 return EXIT_SUCCESS;
+}
+
