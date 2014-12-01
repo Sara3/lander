@@ -1,0 +1,247 @@
+/----------------------------------------------------------------------------
+// File -------- functions.cpp
+// Programmer -- Sabera Daqiq
+// 
+// This file contains the implementations of moonlander(), feulFlow(), amt_time(),
+// display() and some consts functions. 
+// functions. See details in the box comments below.
+//----------------------------------------------------------------------------
+#include <iostream>
+#include <cstdlib>
+#include <iomanip>
+#include "functions.h"
+using namespace std;
+//----------------------------------------------------------------------------
+// Moonlander::Moonlander()
+// 
+// This function is constractor. it sets the functions to its defult value.
+//
+//		Input parameters:
+//		none
+//
+// Output parameters:
+//		feul_flow
+//		vertical_speed
+//		altitude
+//		amt_feul
+//		mass
+//		max_feul
+//		max_thrust
+// 
+// Return value:
+//    none
+//----------------------------------------------------------------------------
+	Moonlander::Moonlander(){
+		cout.setf(ios::fixed);
+		cout.setf(ios::showpoint);
+		cout.precision(2);
+
+		feul_flow=0.0;
+		vertical_speed=0.0;
+		altitude=1000.0;
+		amt_feul=1700.0;
+		mass=900.0;
+		max_feul=10.0;
+		max_thrust=5000.0;
+		
+		return;
+	}
+//----------------------------------------------------------------------------
+// double Moonlander::feulFlow( double value)
+//   this function assigns value to feul flow
+//
+// Input parameters:
+//    value
+//
+// Output parameters:
+//    None
+// 
+// Return value:
+//    feul_flow
+//----------------------------------------------------------------------------
+	double Moonlander::feulFlow( double value){
+		feul_flow = value;
+		return feul_flow;
+	}
+
+//----------------------------------------------------------------------------
+// void Moonlander::amt_time(double t)
+// 
+// This function computes fuel flow/vertical speed/altitude and amt fuel afte t sec
+//
+// Input parameters:
+//    t
+//
+// Output parameters:
+//   Vertical_speed
+//   altitude
+//   am_feul
+// 
+// Return value:
+//   none
+//----------------------------------------------------------------------------
+	void Moonlander::amt_time(double t){
+		double f;
+		double m;
+		m = mass+amt_feul;
+		f = feul_flow*max_thrust;
+		if (feul_flow>0 && amt_feul==0){
+			feul_flow=0;
+		}
+		vertical_speed = vertical_speed + t*((f/m)-1.62);
+		altitude = altitude + (t*vertical_speed);
+		amt_feul = amt_feul - (t*feul_flow*max_feul);
+
+		if (altitude<0){
+			altitude=0;
+			vertical_speed=0;
+		}
+		if (amt_feul<0){
+			amt_feul=0;
+		}
+	}
+
+//----------------------------------------------------------------------------
+// double Moonlander::getfeul_flow() const
+// 
+// This function gets feul flow.
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//   feul_flow
+//----------------------------------------------------------------------------
+	double Moonlander::getfeul_flow() const{
+		return feul_flow;
+	}
+//----------------------------------------------------------------------------
+// double Moonlander::getvertical_speed () const
+// 
+// This function gets the vertical speed
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//   vertical speed
+//----------------------------------------------------------------------------
+	double Moonlander::getvertical_speed () const{
+		return vertical_speed;
+	}
+//----------------------------------------------------------------------------
+// double Moonlander::getaltitude () const
+// 
+// This function gets the altitude
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//   altitude
+//----------------------------------------------------------------------------
+	double Moonlander::getaltitude () const{
+		return altitude;
+	}
+//----------------------------------------------------------------------------
+// double Moonlander::getamt_feul  () const
+// 
+// This function gets the amt_feul
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//   amt_feul
+//----------------------------------------------------------------------------
+	double Moonlander::getamt_feul  () const{
+		return amt_feul;
+	}
+//----------------------------------------------------------------------------
+//double Moonlander::getmass () const
+// 
+// This function gets the mass
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//   mass
+//----------------------------------------------------------------------------
+	double Moonlander::getmass () const{
+		return mass;
+	}
+//----------------------------------------------------------------------------
+//double Moonlander::getmax_feul() const
+// 
+// This function gets the max_feul
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//  max_feul
+//----------------------------------------------------------------------------
+	double Moonlander::getmax_feul() const{
+		return max_feul;
+	}
+//----------------------------------------------------------------------------
+//double Moonlander::getmax_thrust() const
+// 
+// This function gets the max_thrust
+//
+// Input parameters:
+// none
+// Output parameters:
+//   none
+// 
+// Return value:
+//  max_thrust
+//----------------------------------------------------------------------------
+	double Moonlander::getmax_thrust() const{
+		return max_thrust;
+	}
+	
+//----------------------------------------------------------------------------
+// void Moonlander::display()
+// 
+// This function functions displays the outputs 
+//
+// Input parameters:
+//    none
+//
+// Output parameters:
+//    feul_flow
+//		vertical_speed
+//		altitude
+//		amt_feul
+//		mass
+//		max_feul
+//		max_thrust
+// 
+// Return value:
+//    none
+//----------------------------------------------------------------------------
+
+	void Moonlander::display(){
+		cout<<"Feul flow rate.............."<<setw(9)<<feul_flow<<endl;
+		cout<<"Vertical speed.............."<<setw(9)<<vertical_speed<<" m/sec"<<endl;
+		cout<<"Altitude...................."<<setw(9)<<altitude<<" m"<<endl;
+		cout<<"Feul ammount................"<<setw(9)<<amt_feul<<" Kg"<<endl;	
+		cout<<"Mass........................"<<setw(9)<<mass<<" Kg"<<endl;
+		cout<<"Max feul consumption rate..."<<setw(9)<<max_feul<<" Kg/sec"<<endl;
+		cout<<"Max thrust.................."<<setw(9)<<max_thrust<<" newtons"<<endl;
+		cout<<endl;
+	}
